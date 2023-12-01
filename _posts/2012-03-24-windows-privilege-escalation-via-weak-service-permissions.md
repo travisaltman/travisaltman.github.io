@@ -6,6 +6,7 @@ layout: post
 
 When performing security testing on a Windows environment, or any environment for that matter, one of the things you'll need to check is if you can escalate your privileges from a low privilege user to a high privileged user. No matter what environment you are testing there are going to be a range or roles with varying privileges, for the most part on a local windows environment there going to be three roles / privileged users.
 
+
 1\. System 2. Administrator 3. Regular user
 
 Most people would think administrator has the highest privilege but actually it's the system account. A regular user is typically the most limited role which may be so limited that it can't even install software. In the previous paragraph I mentioned "local windows environment" that's because when it comes to a network or [active directory](http://en.wikipedia.org/wiki/Active_Directory) environment you have to take other things into consideration. The scenario I'll be going over involves a single install of a windows operating system.
