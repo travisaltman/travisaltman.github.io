@@ -14,27 +14,20 @@ So let's say you're performing  a security test on a system / environment where 
 
 Obviously the technique I'm going to be discussing is leveraging windows services that have low or weak permissions. For those that aren't aware a [windows service](http://en.wikipedia.org/wiki/Windows_service) is a process that is ran in the background and a regular user would never know that this process is running unless they specifically checked for it, meaning there is no "window" or [GUI](http://www.linfo.org/gui.html) associated with a service. But a service is just like a process in the fact that it's an executable. You can determine all the services on your machine by using the "wmic" command.
 
-```
+```bash
 wmic service list brief
 ```
 
 Your output should be similar to below, I've snipped the output for brevity.
 
-```
+```bash
 ... snip ...
-
 1077      WMPNetworkSvc                   0          Manual     Stopped  OK
-
 1077      WPCSvc                          0          Manual     Stopped  OK
-
 0         WPDBusEnum                      0          Manual     Stopped  OK
-
 0         wscsvc                          752        Auto       Running  OK
-
 0         WSearch                         2140       Auto       Running  OK
-
 0         wuauserv                        856        Auto       Running  OK
-
 ```
 
 First column is the exit code, second column is the name of the service, third column is the process ID (PID) of the service, fourth column states how the service is to be started (start mode), fifth column states if the process is running (state), and the last column gives the status of the service itself. You can also right click on your taskbar, same bar as the start menu, then select task manager. Within the task manager you can select the "services" tab to see this same information, keep in mind there is no services tab within the task manager for XP for this scenario I'm using windows 7.
