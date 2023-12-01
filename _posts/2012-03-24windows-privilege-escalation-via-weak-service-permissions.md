@@ -1,6 +1,7 @@
 ---
 title: "windows privilege escalation via weak service permissions"
 date: "2012-03-24"
+layout: post
 ---
 
 When performing security testing on a Windows environment, or any environment for that matter, one of the things you'll need to check is if you can escalate your privileges from a low privilege user to a high privileged user. No matter what environment you are testing there are going to be a range or roles with varying privileges, for the most part on a local windows environment there going to be three roles / privileged users.
