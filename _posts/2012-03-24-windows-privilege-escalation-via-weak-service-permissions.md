@@ -14,13 +14,13 @@ So let's say you're performing  a security test on a system / environment where 
 
 Obviously the technique I'm going to be discussing is leveraging windows services that have low or weak permissions. For those that aren't aware a [windows service](http://en.wikipedia.org/wiki/Windows_service) is a process that is ran in the background and a regular user would never know that this process is running unless they specifically checked for it, meaning there is no "window" or [GUI](http://www.linfo.org/gui.html) associated with a service. But a service is just like a process in the fact that it's an executable. You can determine all the services on your machine by using the "wmic" command.
 
-```bash
+```
 wmic service list brief
 ```
 
 Your output should be similar to below, I've snipped the output for brevity.
 
-```bash
+```
 ... snip ...
 1077      WMPNetworkSvc                   0          Manual     Stopped  OK
 1077      WPCSvc                          0          Manual     Stopped  OK
@@ -38,17 +38,12 @@ So now that you know how to determine what services are available and running on
 
 On a windows machine there can be a ton of services, going through each folder where the service executable is located, right clicking and determining the permission can be a pain in the butt. First thing we'll need to do is run a couple of commands to easily pull all the permissions for all the services.
 
-\[cce lang="dos"\]
-
+```bat
 for /f "tokens=2 delims='='" %a in ('wmic service list full^|find /i "pathname"^|find /i /v "system32"') do @echo %a >> c:\\windows\\temp\\permissions.txt
-
-\[/cce\]
-
-\[cce lang="dos"\]
-
+```
+```bat
 for /f eol^=^"^ delims^=^" %a in (c:\\windows\\temp\\permissions.txt) do cmd.exe /c icacls "%a"
-
-\[/cce\]
+```
 
 The first command uses wmic to list the services, looks for the full path of the executable, filters out system32 paths, and then dumps that output to a text file. The second command parses that text file getting rid of some junk in the path name then does the icacls command on that path to determine the permissions on that service executable. A snippet of the output you'll see on the command line is below.
 
