@@ -9,19 +9,19 @@ Part 2 covered the neat functionality of session ID analysis within Webscarab. N
 
 This tutorial will once again be targeting Foundstone's Hacme Casino which intentionally has vulnerabilities built into the application. Fuzzing can focus on different types of vulnerabilities and parameters within web applications (e.g. XSS, SQL injection, queries, directory paths, etc...), although this tutorial will focus on parameters vulnerable to SQL injection. Foudstone's documentation lets us know that the username input is vulnerable to SQL injection so we can try fuzzing it with Webscarab to find other possible injections. First we'll try and login with the username 'test' and password 'test'. This can be seen in Figure 1.
 
-[![Try logging into Hacme Casino](images/loginhacmecasinowithusernametest.png)](http://travisaltman.com/wp-content/loginhacmecasinowithusernametest.png "Try logging into Hacme Casino")
+![](/assets/loginhacmecasinowithusernametest.png)
 
 Figure 1: Trying to login
 
 This will not log us into the application but Webscarab will capture the login process in the summary tab. Once this has happened find the login conversation in the summary tab. After you have found the login conversation simply right click and select "Use as fuzz template", this will send the parameters and headers associated with that request / conversation to the fuzzing tab. Selection of the login request can be seen in Figure 2.
 
-[![Right click request to use as a fuzz template](images/rightclickuseasfuzztemplateforhacmecasinologin.png)](http://travisaltman.com/wp-content/rightclickuseasfuzztemplateforhacmecasinologin.png "Right click request to use as a fuzz template")
+![](/assets/rightclickuseasfuzztemplateforhacmecasinologin.png)
 
 Figure 2: Send conversation to fuzz template
 
 Now navigate to the Fuzzer tab within Webscarab. Here you'll see all the parameters that are associated with that request / conversation. You could add parameters to the request and see how the web application reacts to different paths, value, or types. You could also delete parameters for simplicity and to also see how the application reacts with those parameters missing. Once you have determined the parameters for fuzzing you'll need to define a fuzz source. So click on the "Sources" button beside "Start" and "Stop" within the Fuzzer tab. Here you will choose a dictionary style text file that contains parameters you want to fuzz with. I chose a SQL injection dictionary because we know the "username" field is vulnerable to SQL injections. The selection of the SQL injection dictionary can be seen in Figure 3.
 
-[![Choosing SQL injection dictionary as a fuzz source](images/pickingsqlinjectionfuzzsources.png)](http://travisaltman.com/wp-content/pickingsqlinjectionfuzzsources.png "Choosing SQL injection dictionary as a fuzz source")
+![](/assets/pickingsqlinjectionfuzzsources.png)
 
 Figure 3: Choosing fuzz source
 
