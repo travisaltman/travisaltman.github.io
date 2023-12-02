@@ -4,8 +4,6 @@ date: "2019-02-01"
 layout: post
 ---
 
-[![](images/logic-code-1024x512.jpg)](http://travisaltman.com/wp-content/logic-code.jpg)
-
 Some would say what's old is new again when it comes to a phrase like "breach and attack simulations".  How is this different from vulnerability scanning, pentesting, or red teaming?  Really it's more of a maturation of cyber security services so if your organization doesn't currently employ a combination of vulnerability scanning, penetration testing, or red teaming then breach and attack simulations services should probably be lower on your list.
 
 
