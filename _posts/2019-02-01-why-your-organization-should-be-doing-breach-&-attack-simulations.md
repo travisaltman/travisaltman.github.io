@@ -8,6 +8,7 @@ layout: post
 
 Some would say what's old is new again when it comes to a phrase like "breach and attack simulations".  How is this different from vulnerability scanning, pentesting, or red teaming?  Really it's more of a maturation of cyber security services so if your organization doesn't currently employ a combination of vulnerability scanning, penetration testing, or red teaming then breach and attack simulations services should probably be lower on your list.
 
+
 What is Breach & Attack Simulation (BAS)?
 
 > _"It's an automated  or semi-automated emulation of threat actors TTP's (tactics, techniques, and procedures) against information systems within your organization's environment to determine how effective your current controls would protect, detect, and defend those information systems from malicious users."_
