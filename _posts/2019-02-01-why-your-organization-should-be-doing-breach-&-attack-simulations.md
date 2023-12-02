@@ -16,7 +16,12 @@ Now there are various definitions out there but think that pretty much sums up t
 
 So how do the services differ and what are the main goals of introducing something like an assumed compromise or breach simulation?  The quick breakdown on the differences below should help.
 
-\[table id=1 /\]
+| Feature          | BAS              | Pentesting         | Red Teaming        |
+|------------------|------------------|-----------------|-----------------|
+| Objective      | Control and posture     |  Identify weakness     |  Bolster blue team    |
+| Consistency      | High: run exact same scenario every time      | Medium: follows a framework but human driven   | Low: depends up conditions     |
+| Attack elements      | Tenth entry      | Eleventh entry  | Twelfth entry   |
+| Thirteenth entry | Most if not all stages | Usually focused on recon & exploitation | Varies but tends to be post exploitation |
 
 This break down should help delineate the services and as you're trying to mature cyber security services within your organization and leverage the table above to highlight the benefit that a BAS would provide.  So as you're making the case for BAS within your organization whether that's additional head count to support the service or if it's simply a service you'd like to introduce alongside other services the above table will point your leadership in the right direction but let's dig deeper into the benefits of BAS.
 
