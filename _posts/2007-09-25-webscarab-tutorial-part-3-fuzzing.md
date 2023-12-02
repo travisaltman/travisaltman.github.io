@@ -6,6 +6,7 @@ layout: post
 
 Part 2 covered the neat functionality of session ID analysis within Webscarab. Now we'll focus on another great function within Webscarab, fuzzing. I define fuzzing as testing the input of an application by trying various parameters that the input may not expect. These parameters don't have to be random, in my opinion it's best when you tailor your parameters depending on the application. When fuzzing you typically want to inject "command & control" parameters into the input to find the most serious vulnerability. For example if a web application is expecting a social security number I may inject html parameters such as " < / > " to manipulate the look, feel, and operation of a web application. I don't want to delve a whole lot into fuzzing because there are books out there that talk about this one subject. This tutorial is going to focus on using Webscarab to fuzz web applications and find vulnerabilities. Hopefully by the end of this tutorial you will better understand the technical aspects of fuzzing as oppose to the concept of fuzzing, but more reading on fuzzing web applications may be required.
 
+
 This tutorial will once again be targeting Foundstone's Hacme Casino which intentionally has vulnerabilities built into the application. Fuzzing can focus on different types of vulnerabilities and parameters within web applications (e.g. XSS, SQL injection, queries, directory paths, etc...), although this tutorial will focus on parameters vulnerable to SQL injection. Foudstone's documentation lets us know that the username input is vulnerable to SQL injection so we can try fuzzing it with Webscarab to find other possible injections. First we'll try and login with the username 'test' and password 'test'. This can be seen in Figure 1.
 
 [![Try logging into Hacme Casino](images/loginhacmecasinowithusernametest.png)](http://travisaltman.com/wp-content/loginhacmecasinowithusernametest.png "Try logging into Hacme Casino")
@@ -52,7 +53,7 @@ Figure 7: SQL injection changed redirect location
 
 Looks like on conversation 103 one of the SQL injections in the attack dictionary changed the location of the redirect to /lobby/games. Let's throw the injection value back into the web application and see what the response may be. The request can be seen in Figure 8.
 
-[![SQL injection on Hacme Casino username](images/sqlinjectiononusernamewithcommentsatendofinjection.png)](http://travisaltman.com/wp-content/sqlinjectiononusernamewithcommentsatendofinjection.png "SQL injection on Hacme Casino username")
+![](https://github.com/travisaltman/travisaltman.github.io/blob/master/assets/aftersqlinjectionviawebinterface.png)
 
 Figure 8: SQL injection request on Hacme Casino
 
