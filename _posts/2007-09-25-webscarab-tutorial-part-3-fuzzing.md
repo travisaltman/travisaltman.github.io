@@ -27,13 +27,13 @@ Figure 3: Choosing fuzz source
 
 In my SQL injection dictionary I have 66 items, but Webscarab does not have a limit. There are lots of SQL injection dictionaries out there, some are even dedicated towards different platforms (e.g. MySQL, MS SQL Server, DB2, etc...). I got most of my SQL attacks from Andres Andreu's website [Neurofuzz](http://www.neurofuzz.com/), the dictionary I pulled from can be found [here](http://www.neurofuzz.com/modules/software/wsfuzzer/All_attack.txt). In this tutorial we won't be trying to fuzz for XSS vulnerabilities but [ha.ckers.org](http://ha.ckers.org/) has a now infamous [XSS dictionary](http://ha.ckers.org/xss.html) which is a great resource. Once all dictionary sources are added go to the main Fuzzer tab and assign parameters a fuzz source. This can be done via a drop down menu as seen in Figure 4.
 
-[![Choosing fuzz source for each parameter](images/choosesqlinjectionfuzzsourcefromdropdownlist.png)](http://travisaltman.com/wp-content/choosesqlinjectionfuzzsourcefromdropdownlist.png "Choosing fuzz source for each parameter")
+![](/assets/choosesqlinjectionfuzzsourcefromdropdownlist.png)
 
 Figure 4: Drop down menu containing fuzz source
 
 In order to prevent a parameter from being fuzzed simply leave the "Fuzz Source" field blank or delete the parameter altogether. In this case the "user\_login" is the only parameter that will reiterate through the SQLattack dictionary. The next step is to click on "Start" and let Webscarab try all of your parameters within the dictionary. This means the value "test" will be replaced with values inside the SQL injection attack dictionary and new request is sent to the web server for every attack parameter inside your dictionary. The fuzzer in action can be seen in Figure 5.
 
-[![Running the fuzzer](images/runningfuzzerandwatchingrequests.png)](http://travisaltman.com/wp-content/runningfuzzerandwatchingrequests.png "Running the fuzzer")
+![](/assets/runningfuzzerandwatchingrequests.png)
 
 Figure 5: Running the fuzzer
 
@@ -41,13 +41,13 @@ Notice the "Total Requests" and the "Current Request", once the fuzzer has run t
 
 Once the fuzzer has made all of the requests a review of the results is needed to see if any of the attack parameters succeeded in a SQL injection. I do this simply by going back to the summary tab and opening up the first conversation of the fuzzing process. I then manually step through every conversation involved in the fuzzing operation and look for any "interesting differences" between responses. The phrase interesting differences is in quotation marks because fuzzing and looking for SQL injections is not an exact science but knowing how an application normally deals with the input will be helpful in determining what should and should not be expected in a HTTP response. Let's take a look at some of our fuzzing conversations to get a better idea of discovering differences. Have a look at the first fuzzing request, note the value of the "user\_login" parameter in the request and the value of the "Location" in the response. This can be seen in Figure 6.
 
-[![First fuzzed conversation](images/nosqlinjectionfuzzparameterconversation97markedup.png)](http://travisaltman.com/wp-content/nosqlinjectionfuzzparameterconversation97markedup.png "First fuzzed conversation")
+![](/assets/nosqlinjectionfuzzparameterconversation97markedup.png)
 
 Figure 6: First fuzzed conversation
 
 Here it's seen that the first value in the attack dictionary was actually used for the username value, good to know Webscarab is functioning properly. The top of Figure 6 shows that a POST request is sent to /account/login to check the credentials of the user, since the first SQL injection is not a valid user the response is to redirect back to the login screen. Keep in mind when looking at these conversation screen shots that the top half of the figure is the request and the lower half is the response. It can be deferred from this conversation that if an invalid username is inserted into the web application the response will be a redirect to the login screen. So when looking through the other SQL injected conversations it would be a good idea to look for a redirect to another location or an error message. It's always a good idea to look for database error messages when trying to find SQL injection vulnerabilities within a web application. Stepping through the other conversations I notice something different, this can be seen in Figure 7.
 
-[![Successful SQL injection](images/sqlinjectionfuzzparameterconversation103withredtext.png)](http://travisaltman.com/wp-content/sqlinjectionfuzzparameterconversation103withredtext.png "Successful SQL injection")
+![](/assets/sqlinjectionfuzzparameterconversation103withredtext.png)
 
 Figure 7: SQL injection changed redirect location
 
@@ -59,13 +59,13 @@ Figure 8: SQL injection request on Hacme Casino
 
 The response to this SQL injection can be seen below in Figure 9.
 
-[![Successful SQL injection](images/aftersqlinjectionviawebinterface.png)](http://travisaltman.com/wp-content/aftersqlinjectionviawebinterface.png "Successful SQL injection")
+![](/assets/aftersqlinjectionviawebinterface.png)
 
 Figure 9: SQL injection response (Great success!)
 
 Looks like the SQL injection gave us access to Andy Aces' account. This occurred because we added the phrase "or 1=1" (which is always true) to the end of the SQL query that authenticates the users to Hacme Casino. The reason Andy Aces' account was hijacked is because his name is the first one in the database. Guess having the last name Altman could be bad for me as well? Looking through the other conversations there appears to be another SQL injection that worked as well, this can be seen in Figure 10.
 
-[![Another successful SQL injection](images/sqlinjectionfuzzparameterconversation117withredtext.png)](http://travisaltman.com/wp-content/sqlinjectionfuzzparameterconversation117withredtext.png "Another successful SQL injection")
+![](/assets/sqlinjectionfuzzparameterconversation117withredtext.png)
 
 Figure 10: Another successful SQL injection
 
