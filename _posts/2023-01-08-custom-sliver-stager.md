@@ -8,8 +8,8 @@ First all props go to Dominic doing all the hard work and if you want to know th
 
 [https://dominicbreuker.com/post/learning\_sliver\_c2\_06\_stagers/](https://dominicbreuker.com/post/learning_sliver_c2_06_stagers/)
 
-
 My experience is that custom stagers can help evade automated detection mechanisms but realizing it's always a cat and mouse game these are just the steps that have worked for me as of this write up.
+
 
 Sliver instructions within Kali
 
