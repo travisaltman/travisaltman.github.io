@@ -53,7 +53,7 @@ Figure 7: SQL injection changed redirect location
 
 Looks like on conversation 103 one of the SQL injections in the attack dictionary changed the location of the redirect to /lobby/games. Let's throw the injection value back into the web application and see what the response may be. The request can be seen in Figure 8.
 
-![](https://github.com/travisaltman/travisaltman.github.io/blob/master/assets/aftersqlinjectionviawebinterface.png)
+![](/assets/aftersqlinjectionviawebinterface.png)
 
 Figure 8: SQL injection request on Hacme Casino
 
