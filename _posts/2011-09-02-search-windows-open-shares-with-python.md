@@ -1,12 +1,11 @@
 ---
-title: "Search windows open shares with python"
+title: "search windows open shares with python"
 date: "2011-09-02"
-categories: 
-  - "programming"
-  - "windows"
+layout: post
 ---
 
 It's rare during a penetration test that I actually exploit a vulnerability to gain more information. Newcomers to my filed will often use the term "network security". I don't care about the network, have the network for all I care. What I'm more concerned about is the information inside the network. The better way to describe it is "information security". Performing penetration tests one has to keep that in mind, yea it's fun to exploit some user that's running an old version of war-ftp but if that user doesn't yield sensitive information then who cares to some extent.
+
 
 I often see that professional penetration testers will highlight an open windows share that can be read or written to by everyone. They will often highlight other shares that are accessible by a large group such as Authenticated users. I don't want to scoff at these types of open shares as they should be investigated by the business owner that created the open shares. The main thing to consider is what information lies within those open shares. Open shares are usually created for a reason, so that users easily share information. This is not bad unless the information in those shares is secret / classified material. To check for this possible sensitive information one would have to search all the files and folders in that share. Now you can use the cute little dog search feature inside of windows explorer to look for this information but using that your hands are somewhat tied. The search feature inside windows explorer actually does a nice job but if you wanted to automate the process to look at multiple shares and search for multiple terms then you're out of luck. Because of this I wanted to script something that would automate the process. Powershell could have been an option but because I'm already familiar with python I stuck to what I know. This means that in order to run the script you'll have to have python installed on windows. I could have written the script to work in Linux but that would have meant using cifs to map drives which seemed like more of a headache then just using python on windows.
 
