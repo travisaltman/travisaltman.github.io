@@ -1,7 +1,7 @@
 ---
 title: "Webscarab Tutorial Part 3 (fuzzing)"
 date: "2007-09-25"
-layout:post
+layout: post
 ---
 
 Part 2 covered the neat functionality of session ID analysis within Webscarab. Now we'll focus on another great function within Webscarab, fuzzing. I define fuzzing as testing the input of an application by trying various parameters that the input may not expect. These parameters don't have to be random, in my opinion it's best when you tailor your parameters depending on the application. When fuzzing you typically want to inject "command & control" parameters into the input to find the most serious vulnerability. For example if a web application is expecting a social security number I may inject html parameters such as " < / > " to manipulate the look, feel, and operation of a web application. I don't want to delve a whole lot into fuzzing because there are books out there that talk about this one subject. This tutorial is going to focus on using Webscarab to fuzz web applications and find vulnerabilities. Hopefully by the end of this tutorial you will better understand the technical aspects of fuzzing as oppose to the concept of fuzzing, but more reading on fuzzing web applications may be required.
