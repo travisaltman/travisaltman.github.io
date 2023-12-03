@@ -10,15 +10,56 @@ I had the need to generate a password dictionary that would cover every possible
 ```python 
 f=open('wordlist', 'w')
 
-def xselections(items, n): if n==0: yield \[\] else: for i in xrange(len(items)): for ss in xselections(items, n-1): yield \[items\[i\]\]+ss
+def xselections(items, n): 
+  if n==0: yield \[\] 
+  else: 
+    for i in xrange(len(items)):
+      for ss in xselections(items, n-1):
+        yield \[items\[i\]\]+ss
 
-\# Numbers = 48 - 57 # Capital = 65 - 90 # Lower = 97 - 122 numb = range(48,58) cap = range(65,91) low = range(97,123) choice = 0 while int(choice) not in range(1,8): choice = raw\_input(''' 1) Numbers 2) Capital Letters 3) Lowercase Letters 4) Numbers + Capital Letters 5) Numbers + Lowercase Letters 6) Numbers + Capital Letters + Lowercase Letters 7) Capital Letters + Lowercase Letters : ''')
+\# Numbers = 48 - 57 
+# Capital = 65 - 90 
+# Lower = 97 - 122
+numb = range(48,58)
+cap = range(65,91)
+low = range(97,123)
+choice = 0
+while int(choice) not in range(1,8):
+  choice = raw\_input('''
+  1) Numbers
+  2) Capital Letters
+  3) Lowercase Letters
+  4) Numbers + Capital Letters
+  5) Numbers + Lowercase Letters
+  6) Numbers + Capital Letters + Lowercase Letters
+  7) Capital Letters + Lowercase Letters : ''')
 
-choice = int(choice) poss = \[\] if choice == 1: poss += numb elif choice == 2: poss += cap elif choice == 3: poss += low elif choice == 4: poss += numb poss += cap elif choice == 5: poss += numb poss += low elif choice == 6: poss += numb poss += cap poss += low elif choice == 7: poss += cap poss += low
+choice = int(choice)
+poss = \[\]
+if choice == 1:
+  poss += numb
+elif choice == 2:
+  poss += cap
+elif choice == 3:
+  poss += low
+elif choice == 4:
+  poss += numb poss += cap
+elif choice == 5:
+  poss += numb poss += low
+elif choice == 6:
+  poss += numb poss += cap poss += low
+elif choice == 7:
+  poss += cap poss += low
 
-bigList = \[\] for i in poss: bigList.append(str(chr(i)))
+bigList = \[\]
+for i in poss:
+  bigList.append(str(chr(i)))
 
-MIN = raw\_input("What is the min size of the word? ") MIN = int(MIN) MAX = raw\_input("What is the max size of the word? ") MAX = int(MAX) for i in range(MIN,MAX+1): for s in xselections(bigList,i): f.write(''.join(s) + '\\n')
+MIN = raw\_input("What is the min size of the word? ")
+MIN = int(MIN) MAX = raw\_input("What is the max size of the word? ")
+MAX = int(MAX)
+for i in range(MIN,MAX+1):
+  for s in xselections(bigList,i): f.write(''.join(s) + '\\n')
 ```
 
 If you're familiar with programming and Python in particular then you could just grab the code and roll but I really wanted to discuss the usefulness of an application like this.  First I will discuss the basics of how to get this program up and running but will eventually jump into other implications such as time, storage, and usefulness of a password dictionary.
@@ -32,7 +73,7 @@ How to install and use the program
 
 So now you have this cool program that can generate a password dictionary for you, how big (size MB, GB, TB, etc) will this dictionary be?  How long will it take to generate this dictionary?  Let's tackle the size question first as it will help us calculate the time as well.  The key to calculating the size is a math term called permutations.  [Permutations](http://www.aaaknow.com/sta-permu.htm) is a simple equation to determine the number of words for that particular character set and length of word.  The basic equation is below.
 
-nr
+$$ n^r $$
 
 n = total character set (e.g.  a-z + A-Z + 0-9 = 62)
 
