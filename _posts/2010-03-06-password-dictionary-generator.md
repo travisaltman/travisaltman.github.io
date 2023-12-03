@@ -82,7 +82,7 @@ r = length of the word
 
 Now you'll have to calculate nr for each length to get every possible combination.  So for a 6 digit long password your equation will look like the following.
 
-$$ n^6 + n^5 + n^4 + n^3 + n^2 + n^1 = every possible combination
+$$ n^6 + n^5 + n^4 + n^3 + n^2 + n^1 = every possible combination $$
 
 Let's try an example where our character set is a-z (n = 26) and our password is no longer than 6 (r = 1-6) digits, how many words will be in our dictionary?
 
