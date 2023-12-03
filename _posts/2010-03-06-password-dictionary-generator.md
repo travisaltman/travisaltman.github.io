@@ -2,6 +2,7 @@
 title: "password dictionary generator"
 date: "2010-03-06"
 layout: post
+mathjax: true
 ---
 
 I had the need to generate a password dictionary that would cover every possible combination for a defined character set.  I first learned to program in Python so I was going to start there first.  Before writing the program I decided to Google and see if anyone else had tackled this problem via Python, turned out they had.  [Siph0n posted his Python code](http://forums.remote-exploit.org/programming/14204-another-password-wordlist-generator-python.html) to create a password dictionary over at the BackTrack forums.  I wanted to post it here as a mirror and to discuss the implications of creating a password dictionary with every possible combination.  Below is the Python code.
