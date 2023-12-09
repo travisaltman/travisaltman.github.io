@@ -1,8 +1,7 @@
 ---
-title: "iPhone: quick process to check for local files of interest"
+title: "iphone: quick process to check for local files of interest"
 date: "2015-03-30"
-categories: 
-  - "mobile"
+layout: post
 ---
 
 1. Plug iPhone or iPad into Mac
@@ -23,10 +22,7 @@ find . -type f -exec grep -l -i "password" {} +
 ```
 
 iExplorer can open plist in quick view
-https://macroplant.com/iexplorer
 
 You can open databases with Sqlite browser
-https://sqlitebrowser.org/
 
 One can read cookie with BinaryCookieReader.py
-https://github.com/as0ler/BinaryCookieReader
