@@ -6,6 +6,7 @@ layout: post
 
 Part one of this series was to mainly get honeyd up and running. Hopefully you also took away from part one that the configuration file, honeyd.conf, is the key to making things work smoothly and properly. Now that you've got honeyd up and running let's tweak honeyd.conf so that we have multiple honeypots running on one installation of honeyd. One honeypot is great but having three or four is even better. Part two is dedicated to showing you how to properly setup multiple honeypots in honeyd. In part one we only emulated a Windows device via the line below in honeyd.conf
 
+
 ```bash
 set windows personality "Microsoft Windows XP Professional SP1" set windows default tcp action reset
 ```
