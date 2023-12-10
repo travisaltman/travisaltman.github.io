@@ -6,6 +6,7 @@ layout: post
 
 These add-ons are mainly related to web application security, you see these types of list related to firefox add-ons but these are the ones that I think are the most helpful. Firefox has a nice category called [web application security penetration testing](https://addons.mozilla.org/en-US/firefox/collections/adammuntner/webappsec/) that has a lot of the plugins I'll mention.  Not all plugins in this category are worthwhile which is why I'm sharing my list.
 
+
 Detecting [cross site scripting](http://www.owasp.org/index.php/Cross-site_Scripting_%28XSS%29)
 
 [XSS - me](https://addons.mozilla.org/en-US/firefox/addon/xss-me/)
