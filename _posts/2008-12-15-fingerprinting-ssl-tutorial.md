@@ -51,7 +51,7 @@ So you see that my site supports both SSLv2 and SSLv3, in this case the default 
 
 A truncated version of successful output from this command can be seen below.
 
-[![fingerprinting the weakest SSL2 cipher](images/weakestssl2output.png)](http://travisaltman.com/wp-content/weakestssl2output.png "fingerprinting the weakest SSL2 cipher")
+![fingerprinting the weakest SSL2 cipher](/assets/weakestssl2output.png)
 
 So this proves that my SSL server supports the weakest SSL cipher (40 bit key) possible. Looking through the "**openssl ciphers -v**" output you'll notice another SSLv2 cipher that supports 40 bit (EXP-RC2-CBC-MD5). If you wanted to figure out if the SSL server supports either one of these SSLv2 40 bit ciphers you could issue the command below.
 
