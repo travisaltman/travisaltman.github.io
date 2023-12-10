@@ -1,7 +1,7 @@
 I'll start with my overall thoughts and takeaways then get into some tips and tricks to hopefully make you more successful if you decide to tackle this challenge.
 
 
-##Overall thoughts
+## Overall thoughts
 
 - It's definitely a challeng so if that's your style of learning then this is right up your alley especially if you don't want any hand holding along the way
 - Challenging yes but rewarding when grabbing flags and completing the whole lab
@@ -15,7 +15,7 @@ I'll start with my overall thoughts and takeaways then get into some tips and tr
 
 That being said would I take it again or do other HTB pro labs?  Maybe, I'd advise others that you'll need to dedicate time and energy if your goal is to complete the lab versus paying however much per month for access to a lab environment.  If your goal is to use this certification to break into the industry then I'd probably go into a different direction as it might be overwhelming as opposed to an exam based certification.  If your goal is to sharpen what you have then I'd say it's worthwhile even if you don't complete the entire lab.  Besides if it isn't what you thought you can always.  So overall that's my take.
 
-##Tips and tricks
+## Tips and tricks
 
 These are just overall tips and tricks I won't get too much into the nitty gritty but will link to other helpful resources.  Just like  other penetration tests it's a must you take extremly good notes especially since the lab refreshes daily.  When completing all 27 flags you'll need to be able to reference how you accomplished every single one.  Mentioned earlier the rating of Intermediate might be over stated but when trying to exploit a box what's usually presented is probably what you should dig further into.  For example if it's a wordpress website look for vulns for that.  If it's an FTP server try default creds or creds you've already obtained.  There are a handful of gotchas that aren't as straight forward and in those instances I'd search online or hit up the HTB communities.
 
