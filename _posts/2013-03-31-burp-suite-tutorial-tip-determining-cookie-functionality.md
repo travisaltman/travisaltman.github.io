@@ -7,6 +7,7 @@ categories:
 
 When testing web applications you may come across an application that passes a ton of cookies along with each request. Cookies are used to maintain state within the application and typically only one cookie is needed within the application. There are times when other cookies are used as well and when testing web applications it may be difficult to determine what cookie is associated with session and functionality. Hopefully my technique of determining cookie functionality will also help others as well. Let's get started with an example. I'm going to take a look at ubuntu forums as an example.
 
+
 ![](/assets/UbuntuForumHomePage.png "UbuntuForumHomePage")
 
 So configure burp to capture traffic and make a request to Ubuntu forums. Below is the screen shot of Burp making the first couple of requests to ubuntuforums.org.
