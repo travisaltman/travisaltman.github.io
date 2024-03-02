@@ -1,9 +1,3 @@
----
-title: "Cobalt strike abuse service for system privileges"
-date: "2024-03-14"
-layout: post
----
-
 This scenario is based upon an assumed compromise with lower privileges and after doing some endpoint recon we find a service that allows us to configure an exe of our choosing.  It's a common technique to look for vulnerable or misconfigured services as they tend to run with higher privileges.  Assuming you get passed EDR with the assumed compromised some of these techniques can be noisy but are TTPs threat actors employ. I'm using Cobalt as my C2 of choice but these techniques can be leveraged with plent of other popular C2 frameworks.
 
 
