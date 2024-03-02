@@ -9,9 +9,9 @@ This scenario is based upon an assumed compromise with lower privileges and afte
 
 We'll need two listeners for this scenario (http & tcp).  The http listener is tied to the initial compromise and we'll use the beacon_bind_tcp as the second listener which will aid in elevating our privileges.  Below are my settings for both http and tcp listeners with cobalt.
 
-![blah](/assets/http.png)
+![http](/assets/http.png)
 
-![blah](/assets/tcp-local.png)
+![tcp-local](/assets/tcp-local.png)
 
 Once on the compromised endpoint we can run a tool such as SharpUp to determine any priv esc opportunities.
 
@@ -58,6 +58,6 @@ You may need to stop and start the service so keep that in mind.  Once the servi
 [03/02 01:36:36] [+] established link to child beacon: 10.10.123.102
 ```
 
-![blah](/assets/system-privs.png)
+![system-privs](/assets/system-privs.png)
 
 We can see from the screenshot that we were succesful in obtaing a call back with system privileges.
