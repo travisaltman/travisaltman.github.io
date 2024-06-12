@@ -1,4 +1,4 @@
-This scenario is based upon an assumed compromise with lower privileges and after doing some endpoint recon we find a service that allows us to configure an exe of our choosing.  It's a common technique to look for vulnerable or misconfigured services as they tend to run with higher privileges.  Assuming you get passed EDR with the assumed compromised some of these techniques can be noisy but are TTPs threat actors employ. I'm using Cobalt as my C2 of choice but these techniques can be leveraged with plent of other popular C2 frameworks.
+This scenario is based upon an assumed compromise with lower privileges and after doing some endpoint recon we find a service that allows us to configure an exe of our choosing.  It's a common technique to look for vulnerable or misconfigured services as they tend to run with higher privileges.  Assuming you get passed EDR with the assumed compromised some of these techniques can be noisy but are TTPs threat actors employ. I'm using Cobalt as my C2 of choice but these techniques can be leveraged with plenty of other popular C2 frameworks.
 
 
 We'll need two listeners for this scenario (http & tcp).  The http listener is tied to the initial compromise and we'll use the beacon_bind_tcp as the second listener which will aid in elevating our privileges.  Below are my settings for both http and tcp listeners with cobalt.
@@ -19,7 +19,7 @@ Once on the compromised endpoint we can run a tool such as SharpUp to determine 
 	Service 'VulnService1' (State: Running, StartMode: Auto) : C:\Program Files\Vulnerable Services\Service.exe
 ```
 
-So SharpUp identifed a service where we can modify the service binary but doesn't show exactly what the permissions are so we need to dig a little deeper.  We can leverage a powershell script to see what service rights we have.
+So SharpUp identified a service where we can modify the service binary but doesn't show exactly what the permissions are so we need to dig a little deeper.  We can leverage a powershell script to see what service rights we have.
 
 ```bash
 [03/02 01:21:24] beacon> powershell-import C:\Tools\Get-ServiceAcl.ps1
@@ -43,7 +43,7 @@ beacon> run sc config VulnService binPath= C:\Temp\tcp-localexe
 beacon> run sc qc VulnService
 ```
 
-You may need to stop and start the service so keep that in mind.  Once the service is up and running with payload we pointed it too we can then connect to our localhost to hopefully have a beacon with elevated prvileges.
+You may need to stop and start the service so keep that in mind.  Once the service is up and running with payload we pointed it too we can then connect to our localhost to hopefully have a beacon with elevated privileges.
 
 ```bash
 [03/02 01:36:36] beacon> connect localhost 4444
@@ -54,4 +54,4 @@ You may need to stop and start the service so keep that in mind.  Once the servi
 
 ![](/assets/system-privs.png "system-privs")
 
-We can see from the screenshot that we were succesful in obtaing a call back with system privileges.
+We can see from the screenshot that we were successful in obtaining a call back with system privileges.
